@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+
+<!DOCTYPE tiles-definitions PUBLIC
+       "-//Apache Software Foundation//DTD Tiles Configuration 2.0//EN"
+       "http://tiles.apache.org/dtds/tiles-config_2_0.dtd">
+
+<tiles-definitions>
+	
+	<!-- Layout -->
+	<definition name="search-layout" template="/WEB-INF/layouts/searchTemplate.jsp">
+		<put-attribute name="header" value="/WEB-INF/layouts/header.jsp" />
+		<put-attribute name="navigation" value="/WEB-INF/layouts/navigation.jsp" />
+		<put-attribute name="footer" value="/WEB-INF/layouts/footer.jsp" />
+	</definition>
+	
+	<!-- Search Results Layout -->
+	<definition name="search-results-layout" template="/WEB-INF/layouts/searchResultsTemplate.jsp">
+	
+		<put-attribute name="header" value="/WEB-INF/layouts/resultsHeader.jsp"/>
+		<put-attribute name="navigation" value="/WEB-INF/layouts/navigation.jsp" />
+		<put-attribute name="footer" value="/WEB-INF/layouts/footer.jsp" />	
+	
+	
+	</definition>
+	
+	<definition name="test-search-results-layout1" template="/WEB-INF/layouts/test-searchResultsTemplate.jsp">
+
+		<put-attribute name="header" value="/WEB-INF/layouts/liveCarnivalHeader.jsp"/>
+		<put-attribute name="navigation" value="/WEB-INF/layouts/liveCarnivalNav.jsp"/>
+		<put-attribute name="footer" value="/WEB-INF/layouts/liveCarnivalfooter.jsp"/>
+
+	</definition>
+	
+	
+	<definition name="test-hotel-search-layout" template="/WEB-INF/layouts/hotelSearchTemplate.jsp">
+
+		<put-attribute name="header" value="/WEB-INF/layouts/liveCarnivalHotelHeader.jsp"/>
+		<put-attribute name="navigation" value="/WEB-INF/layouts/liveCarnivalHotelNav.jsp"/>
+		<put-attribute name="footer" value="/WEB-INF/layouts/liveCarnivalHotelFooter.jsp"/>
+
+	</definition>
+	
+
+	<!-- Empty Template -->
+	<definition name="search-dumitri-layout" template="/WEB-INF/layouts/dumtriTemplate.jsp">
+	
+		<put-attribute name="header" value="/WEB-INF/layouts/blankHeader.jsp"/>
+		<put-attribute name="navigation" value="/WEB-INF/layouts/navigation.jsp" />
+		<put-attribute name="footer" value="/WEB-INF/layouts/footer.jsp" />	
+		
+	</definition>
+	
+	<!-- Test Template Layout -->
+	
+	<definition name="test-ajax-layout" template="/WEB-INF/layouts/testTemplate.jsp">
+	
+		<put-attribute name="header" value="/WEB-INF/search/testHeader.jsp"/>
+		<put-attribute name="navigation" value="/WEB-INF/layouts/navigation.jsp" />
+		<put-attribute name="footer" value="/WEB-INF/search/testFooter.jsp" />	
+	
+	
+	</definition>
+	
+	
+	<definition name="event-mgmt-layout" template="/WEB-INF/layouts/eventMgmTemplate.jsp">
+	
+		<put-attribute name="header" value="/WEB-INF/eventMgmt/eventMgmtHeader.jsp"/>
+		<put-attribute name="navigation" value="/WEB-INF/eventMgmt/eventMgmtNav.jsp"/>
+		<put-attribute name="footer" value="/WEB-INF/eventMgmt/eventMgmtFooter.jsp"/>
+	
+	</definition>
+	
+	
+</tiles-definitions>

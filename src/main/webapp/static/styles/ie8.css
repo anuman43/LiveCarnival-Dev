@@ -1,0 +1,107 @@
+ #signin
+{
+
+margin-top:17px;
+color:white;
+width:61%;
+margin-left:0;
+border:none;
+}
+#signin  a  font  span  simg
+{
+border:none !important;
+margin-top:8px;
+color:white;
+width:61%;
+margin-left:0;
+
+}
+#round_button
+{
+width:20%;
+height:20px;
+margin-top:-32px;
+margin-right: 9px;
+background-image:url(../images/round.png);
+background-size:100% 100%;
+}
+/*
+
+  #nav > ul > li > a
+        {
+            
+            height: 100%;
+            float: left;
+			text-decoration:none;
+			list-style-type:none;
+			border:none;
+        }
+ #nav ul li a{
+	text-decoration:none;
+	color:white;
+	font-family: -webkit-body;
+	font-size:14px;
+	padding-left: 27px;
+	list-style-type:none;
+	border:none;
+	}
+	#nav ul li a span img{
+	text-decoration:none;
+	color:white;
+	font-family: -webkit-body;
+	font-size:14px;
+	padding-left: 27px;
+	list-style-type:none;
+	border:none !important;
+	}
+/*
+#navi
+{
+left:-10px;
+width:77%;height:70px;bottom:-73px;
+}
+*/
+
+/*new_vertical
+{
+height: 260px;
+width: 29%;
+margin:0 auto;
+margin-left:20%;
+border-radius: 4px;
+margin-top:9px;
+position:absolute;
+background: url(../images/bg-pix.png);
+background-color:none;
+border:none;
+}
+
+#vertical_banner
+{
+width:23.57%;
+height:69px;
+margin-top:-437px;
+margin-left:390px;
+position:relative;
+background-image: url(../images/search2.png);
+background-size:100% 100%;
+background-repeat:no-repeat;
+}
+#search_bar
+{
+left:-94px;
+top:20px;
+position:relative;
+
+}
+#second_banner
+{
+left:3%;
+top:-41%;
+width:22%;
+position:relative;
+margin-left:auto;
+margin-top:28px;
+margin-right:auto;
+margin-bottom:0px;
+}

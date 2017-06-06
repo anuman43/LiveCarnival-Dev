@@ -1,0 +1,24 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated Sep 7, 2014 6:03:50 PM by Hibernate Tools 3.4.0.CR1 -->
+<hibernate-mapping>
+    <class name="com.netreality.vertie.reveng.Carnivaltermsindextbl" table="carnivaltermsindextbl" catalog="test">
+        <id name="termEntryId" type="java.lang.Integer">
+            <column name="termEntryId" />
+            <generator class="identity" />
+        </id>
+        <property name="domainTerm" type="string">
+            <column name="domainTerm" not-null="true" />
+        </property>
+        <property name="termUrl" type="string">
+            <column name="termUrl" not-null="true" />
+        </property>
+        <property name="termRank" type="java.lang.Double">
+            <column name="termRank" precision="22" scale="0" />
+        </property>
+        <property name="termLocation" type="java.lang.Integer">
+            <column name="termLocation" />
+        </property>
+    </class>
+</hibernate-mapping>

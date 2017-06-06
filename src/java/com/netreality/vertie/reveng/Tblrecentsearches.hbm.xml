@@ -1,0 +1,33 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated Dec 25, 2014 7:59:32 PM by Hibernate Tools 3.4.0.Beta1 -->
+<hibernate-mapping>
+    <class name="com.netreality.vertie.reveng.Tblrecentsearches" table="tblrecentsearches" catalog="test">
+        <id name="searchId" type="java.lang.Integer">
+            <column name="searchId" />
+            <generator class="identity" />
+        </id>
+        <property name="searchWords" type="string">
+            <column name="searchWords" not-null="true" />
+        </property>
+        <property name="siteReferalPage" type="string">
+            <column name="siteReferalPage" />
+        </property>
+        <property name="createdDate" type="timestamp">
+            <column name="createdDate" length="19" not-null="true" />
+        </property>
+        <property name="createdBy" type="string">
+            <column name="createdBy" length="200" />
+        </property>
+        <property name="updatedBy" type="string">
+            <column name="updatedBy" length="200" />
+        </property>
+        <property name="updatedDate" type="timestamp">
+            <column name="updatedDate" length="19" />
+        </property>
+        <property name="referedIpaddress" type="string">
+            <column name="referedIPAddress" length="100" />
+        </property>
+    </class>
+</hibernate-mapping>

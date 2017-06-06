@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+
+<!DOCTYPE tiles-definitions PUBLIC
+       "-//Apache Software Foundation//DTD Tiles Configuration 2.0//EN"
+       "http://tiles.apache.org/dtds/tiles-config_2_0.dtd">
+
+<tiles-definitions>
+	
+	<!-- View pages -->
+	
+	<definition name="carnivate/oldSearchLanding" extends="search-layout">
+		<put-attribute name="body" value="/WEB-INF/search/searchBody.jsp"/>
+
+	</definition>
+
+	<definition name="carnivate/resultsView" extends="test-search-results-layout1">
+	
+		<!--  <put-attribute name="body" value="/WEB-INF/search/pagedSearchResults.jsp"/><put-attribute name="body" value="/WEB-INF/search/liveCarnivalTestResults.jsp"/>-->
+		<put-attribute name="body" value="/WEB-INF/search/liveCarnivalSearchResults.jsp"/>
+	
+	</definition>
+	
+	<definition name="carnivate/travelResults" extends="test-search-results-layout1">
+		
+		<put-attribute name="body" value="/WEB-INF/results/liveCarnivalTravelResults.jsp"/>
+	
+	</definition>
+	
+	<definition name="carnivate/hotelSearchTestView" extends="test-search-results-layout1">
+	
+		<!--  <put-attribute name="body" value="/WEB-INF/search/pagedSearchResults.jsp"/>-->
+		<put-attribute name="body" value="/WEB-INF/search/liveCarnivaTravelResults.jsp"/>
+	
+	</definition>
+	
+	<definition name="carnivate/hotelSearchView" extends="test-hotel-search-layout">
+	
+		<put-attribute name="body" value="/WEB-INF/search/liveCarnivalHotel.jsp"/>
+	
+	</definition>
+	
+	<!-- Travel Form View -->
+	<definition name="carnivate/travelSearchView" extends="test-hotel-search-layout">
+	
+		<put-attribute name="body" value="/WEB-INF/search/travelSearchForm.jsp"/>
+	
+	</definition>
+	
+	<definition name="carnivate/hotelResultsView" extends="search-results-layout">
+	
+		<put-attribute name="body" value="/WEB-INF/search/hotelResults.jsp"/>
+	
+	</definition>
+	
+	<!-- Social Media Test View -->
+	
+	<definition name="carnivate/socailMediaView" extends="test-hotel-search-layout">
+	
+		<put-attribute name="body" value="/WEB-INF/socialMedia/eventsTagDemo.jsp"></put-attribute>
+	
+	</definition>
+	
+	
+	<definition name="carnivate/testView" extends="test-ajax-layout">
+	
+		<put-attribute name="body" value="/WEB-INF/search/testAjax.jsp"/>
+
+	</definition>
+	
+	<definition name="carnivate/searchLanding" extends="search-dumitri-layout">
+	
+		<put-attribute name="body" value="/WEB-INF/search/searchLanding.jsp"/>
+	
+	</definition>
+	
+	<definition name="carnivate/eventsManagement" extends="event-mgmt-layout">
+	
+		<put-attribute name="body" value="/WEB-INF/eventMgmt/eventMgmtDashboard.jsp"/>
+	
+	</definition>
+	
+	<definition name="carnivate/eventsManagementByCarnival" extends="event-mgmt-layout">
+	
+		
+		<put-attribute name="body" value="/WEB-INF/eventMgmt/eventsByCarnival.jsp"/>
+	
+	</definition>
+	
+
+</tiles-definitions>
