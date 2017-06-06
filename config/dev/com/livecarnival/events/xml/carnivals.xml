@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="UTF-8"?>
+	<carnivals>
+		<carnival>
+			<name>Trinidad and Tobago Carnival</name>
+			<location>
+				<country>Trinidad and Tobago</country>
+			</location>
+		</carnival>
+		<carnival>
+			<name>Miami Carnival</name>
+			<location>
+				<city>Miami</city>
+				<state>FL</state>
+				<country>USA</country>
+			
+			</location>
+		</carnival>
+		<carnival>
+			<name>Houston Carnival</name>
+			<location>
+				<city>Houston</city>
+				<state>TX</state>
+				<country>USA</country>
+			
+			</location>
+		</carnival>
+		<carnival>
+			<name>Orlando Carnival</name>
+			<location>
+				<city>Orlando</city>
+				<state>FL</state>
+				<country>USA</country>
+			
+			</location>
+		</carnival>
+		<carnival>
+			<name>Virgin Islands Carnival</name>
+			<location>
+				<country>US Virgin Islands</country>
+			
+			</location>
+		</carnival>
+		<carnival>
+			<name>St. Lucia Carnival</name>
+			<location>
+				<country>St. Lucia</country>
+			
+			</location>
+		</carnival>
+		<carnival>
+			<name>Barbados Carnival(Cropover)</name>
+			<location>
+				<country>Barbados</country>
+			
+			</location>
+		</carnival>
+		<carnival>
+			<name>Grenada Carnival(Spicemas)</name>
+			<location>
+				<country>Grenada</country>
+			
+			</location>
+		</carnival>
+		<carnival>
+			<name>Cayman Carnival</name>
+			<location>
+				<country>Cayman Islands</country>
+			
+			</location>
+		</carnival>
+		<carnival>
+			<name>DC Carnival</name>
+			<location>
+				<city>District Of Columbia</city>
+				<country>USA</country>
+			
+			</location>
+		</carnival>
+		<carnival>
+			<name>Jamaica Carnival</name>
+			<location>
+				<country>Jamaica</country>
+			
+			</location>
+		</carnival>
+		<carnival>
+			<name>Dominica Carnival</name>
+			<location>
+				<country>Dominica</country>
+			
+			</location>
+		</carnival>
+		<carnival>
+			<name>Atlanta Carnival</name>
+			<location>
+				<city>Atlanta</city>
+				<state>GA</state>
+				<country>USA</country>
+			</location>
+		</carnival>
+		<carnival>
+			<name>New York Carnival(Labor Day/Brooklyn)</name>
+			<location>
+				<city>Brooklyn</city>
+				<state>NY</state>
+				<country>USA</country>
+			</location>
+		</carnival>
+		<carnival>
+			<name>Boston Carnival</name>
+			<location>
+				<city>Boston</city>
+				<state>MA</state>
+				<country>USA</country>
+			</location>
+		</carnival>
+		<carnival>
+			<name>Antigua Carnival</name>
+			<location>
+				<country>Antigua</country>
+			
+			</location>
+		</carnival>
+		
+	
+	</carnivals>

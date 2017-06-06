@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-configuration PUBLIC
+		"-//Hibernate/Hibernate Configuration DTD 3.0//EN"
+		"http://hibernate.sourceforge.net/hibernate-configuration-3.0.dtd">
+<hibernate-configuration>
+    <session-factory>
+        <property name="hibernate.connection.datasource">jdbc/vertieMySQL</property>
+        <property name="hibernate.dialect">org.hibernate.dialect.MySQL5InnoDBDialect</property>
+        <property name="hibernate.jdbc.use_streams_for_binary">true</property>
+		<property name="connection.pool_size">10</property>
+        <property name="show_sql">true</property>
+        <property name="current_session_context_class">thread</property>
+         <mapping resource="com/netreality/vertie/reveng/Carnivaltermsindextbl.hbm.xml"/>
+         <mapping resource="com/netreality/vertie/reveng/Tblrecentsearches.hbm.xml"/>
+    </session-factory>
+</hibernate-configuration>
