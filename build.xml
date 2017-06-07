@@ -1,0 +1,109 @@
+<project name="Vertie-search" default="war-dev">
+	
+	<property file="./build/build.properties"/>
+	
+	 <path id="classpath">
+	       <fileset dir="${lib.dir}"  includes="**/*.jar"/>
+		   <fileset dir="${extLib.dir}"  includes="**/*.jar"/>
+	     </path>
+	
+	<!-- ================================= 
+          target: war-dev              
+         ================================= -->
+    <target name="war-dev" depends="cleanDir-dev,init-dev,compile,config-dev,config-hibernate" description="description">
+    	
+    	<echo>Building war file-${currtime}</echo>
+    	<tstamp>
+    				<format property="currtime" pattern="dd-MMMMM-yyyy 'at' HH:mm:ss z" />
+    	</tstamp>
+    	<war destfile="${dist.dir}/dev/${war.file.name}" webxml="${web-inf}/web.xml">
+    		
+    			<fileset dir="${webappSrc}" id="id">
+   					 <exclude name="**/META-INF/**, **/*.svn"/>
+				</fileset>			
+    		<lib dir="${lib.dir}"/>
+    		<classes dir="${java.classes.dir}"/>
+    		 <manifest>
+    						<section name="Build Details">
+    							<attribute name="Build-By" value="${user.name}" />
+    							<attribute name="Build-On" value="${currtime}" />
+    							<attribute name="Build-For" value="Development" />
+    							<attribute name="Implementation-Version" value="Beta 1.0" />
+    						</section>
+    					</manifest>
+    	
+    	</war>
+        
+    </target>
+	
+	<!-- - - - - - - - - - - - - - - - - - 
+          target: cleanDir                      
+         - - - - - - - - - - - - - - - - - -->
+    <target name="cleanDir-dev">
+    	<echo>Deleting dev distribution director</echo>
+    <delete>
+    		<fileset dir="${dist.dir}/dev">
+	   			 <include name="**/*.war"/>
+			</fileset>    
+	
+	</delete>
+    </target>
+
+<!-- - - - - - - - - - - - - - - - - - 
+          target: cleanClasses                      
+         - - - - - - - - - - - - - - - - - -->
+    <target name="cleanClasses">
+            <delete>
+	<fileset dir="${java.classes.dir}" includes="**/*.xml, **/*.properties, **/*.class">
+	    
+	</fileset>
+</delete>
+
+    </target>
+	
+	<!-- ================================= 
+          target: compile              
+         ================================= -->
+    <target name="compile" depends="" description="compile source files">
+    	<echo>--------Java Version: ${java.version}-------</echo>
+    	<echo>Compiling Source Files</echo>
+    	  	<tstamp>
+    				<format property="currtime" pattern="dd-MMMMM-yyyy 'at' HH:mm:ss z" />
+    	</tstamp>
+    	<javac srcdir="${java.src.dir}" includeantruntime="no" destdir="${java.classes.dir}" target="1.7" source="1.7" classpathref="classpath" debug="on"/>
+    	
+        
+    </target>
+
+	<!-- ================================= 
+          target: init-dev              
+         ================================= -->
+    <target name="init-dev" depends="" description="initialize build">
+        <echo>Creating directories for build</echo>
+    	<mkdir dir="${dist.dir}/dev"/>
+    	<mkdir dir="${java.classes.dir}"/>
+    </target>
+	
+	<!-- ================================= 
+          target: config-dev              
+         ================================= -->
+    <target name="config-dev" depends="" description="configure dev environment">
+        <echo>Copying other resource files-log4j etc</echo>
+    	<copy todir="${java.classes.dir}">
+    		<fileset dir="${config.dir}/dev" includes="**/*.xml,**/*.properties"></fileset>
+    	</copy>
+    </target>
+	
+	<!-- ================================= 
+          target: config-hibernate              
+         ================================= -->
+    <target name="config-hibernate" depends="" description="copy hibernate mapping files">
+    	
+    	<copy tofile="${java.classes.dir}/com/netreality/vertie/reveng/Carnivaltermsindextbl.hbm.xml" file="${java.src.dir}/com/netreality/vertie/reveng/Carnivaltermsindextbl.hbm.xml"/>
+    	<copy tofile="${java.classes.dir}/com/netreality/vertie/reveng/Tblrecentsearches.hbm.xml" file="${java.src.dir}/com/netreality/vertie/reveng/Tblrecentsearches.hbm.xml"/>
+    </target>
+
+
+
+
+</project>
