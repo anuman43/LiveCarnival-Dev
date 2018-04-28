@@ -12,12 +12,12 @@
 			<div class="form-inline">
 				<div class="form-group">
 					<label class="sr-only" for="exampleInputEmail3">From</label> <input
-						type="text" class="form-control" id="exampleInputEmail3"
+						type="text" class="form-control" id="departTxtInput"
 						placeholder="From" name="fromAirport">
 				</div>
 				<div class="form-group">
 					<label class="sr-only" for="exampleInputPassword3">To</label> <input
-						type="text" class="form-control" id="exampleInputPassword3"
+						type="text" class="form-control" id="destinationTxt"
 						placeholder="To" name="toAirport">
 				</div>
 			</div>

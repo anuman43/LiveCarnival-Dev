@@ -1,4 +1,4 @@
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@include  file="../search/taglibInclude.jsp" %>
 <c:set var="baseURL" value='..' scope="application"/>
 <jsp:include page="../app/appIncludes.jsp"/>
 

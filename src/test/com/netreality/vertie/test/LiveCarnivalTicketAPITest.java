@@ -48,6 +48,8 @@ public class LiveCarnivalTicketAPITest extends BaseUnitTest {
 	//
 	private static String TEST_SEARCH_FILTER = "testing";
 	
+	private static String TEST_EVENT_SEARCH_TERM = "Bliss";
+	
 	
 	@BeforeClass
 	public static void setUp()
@@ -98,7 +100,7 @@ public class LiveCarnivalTicketAPITest extends BaseUnitTest {
 	}
 	
 	
-	@Test
+	@Ignore
 	public void testgetEventsBySearchTitle()
 	{
 		String targetUrl = null;
@@ -137,6 +139,16 @@ public class LiveCarnivalTicketAPITest extends BaseUnitTest {
 		Assert.assertNotNull(ASSERT_NOT_NULL_MESSAGE, affData);
 		getLog().info(affData);
 		
+	}
+	
+	
+	@Test
+	public void testSearchingEvents()
+	{
+		List<EventDisplayObj> resultList = null;
+		Assert.assertNull(ASSERT_NULL_MESSAGE, resultList);
+		resultList = TicketAPIUtil.getEventDataForMainSearch(TEST_EVENT_SEARCH_TERM);
+		Assert.assertNotNull(ASSERT_NOT_NULL_MESSAGE, resultList);
 	}
 	
 

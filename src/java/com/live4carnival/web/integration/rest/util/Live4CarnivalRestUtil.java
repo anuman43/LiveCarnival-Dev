@@ -18,6 +18,7 @@ import org.dom4j.Document;
 import org.dom4j.DocumentException;
 import org.dom4j.DocumentHelper;
 import org.springframework.http.HttpEntity;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.ResponseEntity;
 import org.springframework.http.converter.HttpMessageConverter;
@@ -30,6 +31,8 @@ import com.fasterxml.jackson.annotation.JsonInclude.Include;
 import com.fasterxml.jackson.core.JsonGenerationException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.live4carnival.accomodation.ean.hotelList.po.EANRestHotelListResponse;
+import com.live4carnival.accomodation.ean.ping.json.po.EANPingResponsePO;
 import com.netreality.live4carnival.enums.HttpActionEnum;
 import com.netreality.live4carnival.httpresponse.RestResponseHandler;
 import com.netreality.live4carnival.integration.to.QPXAirfareRequestTO;
@@ -61,6 +64,35 @@ public class Live4CarnivalRestUtil {
 	
 	//LiveCarnival Ticketing Rest API
 	private static String LIVECARNIVAL_TICKET_SCOKET_API_KEY = "8740d134a1dda91d878b764eed9f00f5-997863";
+	//EAN Rapid Test Headers
+	private static String TEST_EAN_STANDARD_HEADER_NAME = "Test";
+	private static String TEST_EAN_STANDARD_HEADER_VALUE = "STANDARD";
+	//EAN Authorization Header
+	private static String EAN_AUTHORIZATION_HEADER_NAME = "Authorization";
+	private static String EAN_AUTHORIZATION_HEADER_VALUE = "EAN APIKey=6d6abr6799s9qibqpnd8mu8uq7,signature=98376178a9885c158258bcf1a74679954d9d3b7bd5a455a4b15a5cc3fe34ca8c9a006fe9c210eba2e0a03cb16205bdbbb698f340dddfda2b9fd3b1aa2a31b208,timestamp=1515899117";
+	//EAN Accept Header
+	private static String EAN_ACCEPT_HEADER_NAME = "Accept";
+	private static String EAN_ACCEPT_HEADER_VALUE = "application/json";
+	//EAN Accept-Encoding Header
+	private static String EAN_ACCEPT_ENCODING_HEADER_NAME = "Accept-Encoding";
+	private static String EAN_ACCEPT_ENCODING_HEADER_VALUE = "gzip";
+	//Customer IP Header
+	private static String EAN_CUSTOMER_IP_HEADER_NAME = "Customer-Ip";
+	private static String EAN_CUSTOMER_IP_HEADER_VALUE = "192.168.1.1";
+	
+	//EAN API KEY HEADER
+	private static String EAN_API_KEY_HEADER_NAME = "apiKey";
+	private static String EAN_API_KEY_HEADER_VALUE = "6d6abr6799s9qibqpnd8mu8uq7";
+	//EAN Timestamp Header
+	private static String EAN_TIMESTAMP_HEADER_NAME = "timestamp";
+	private static String EAN_TIMESTAMP_HEADER_VALUE = "";
+	//Server Timestamp
+	private static String EAN_SERVER_TIMESTAMP_HEADER_NAME = "servertimestamp";
+	private static String EAN_SERVER_TIMESTAMP_HEADER_VALUE = "";
+	//Signature Header
+	private static String EAN_SERVER_SIGNATURE_HEADER_NAME = "signature";
+	private static String EAN_SERVER_SIGNATURE_HEADER_VALUE = "171eed97f9b7c79486e4bbb4b584857c";
+	
 	
 	static
 	{
@@ -93,6 +125,51 @@ public class Live4CarnivalRestUtil {
 		
 		restRequestTemplate.setMessageConverters(converters);
 	}
+	
+	
+	public static String executeEANPingRestRequest(String pingReqUrl,String pingQryParams)
+	{
+		String pingResult = null;
+		
+		HttpEntity<String> reqEnt = null;
+		
+		reqEnt = new HttpEntity<String>(pingQryParams);
+		
+		pingResult = invokeRestRequest(pingReqUrl,HttpActionEnum.Get.getAction(),reqEnt,null);
+		
+		_log.debug("EAN Ping response "+ pingResult);
+		
+		return pingResult;
+	}
+	
+	
+	public static EANPingResponsePO executeEANPingRequest(String pingReqUrl,String pingQryParams)
+	{
+		EANPingResponsePO pingResp = null;
+		
+		String restResponse = null;
+		
+		restResponse = executeEANPingRestRequest(pingReqUrl, pingQryParams);
+		
+		ObjectMapper mapper = null;
+		
+		if(restResponse != null)
+		{
+			mapper = new ObjectMapper();
+			
+			try {
+				pingResp = mapper.readValue(restResponse, EANPingResponsePO.class);
+			} catch (IOException ioe) {
+				_log.error(ioe);
+			}
+			
+		}
+		
+		
+		return pingResp;
+	}
+	
+	
 	
 	
 	public String createQPXAPIRequest(String qpxUrl,QPXAirfareRequestTO airfareInquiry)
@@ -457,4 +534,126 @@ public class Live4CarnivalRestUtil {
 		return restActionResult;
 	}
 
+	
+	public static String execGetHotelListingRequest(String hotelReqUrl,String hotelReqParams)
+	{
+		String hotelListResp = null;
+		
+		HttpEntity<String> reqEnt = null;
+		
+		//reqEnt = new HttpEntity<String>();
+		
+		hotelListResp = invokeRestRequest(hotelReqUrl + hotelReqParams, HttpActionEnum.Get.getAction(), reqEnt, null);
+		
+		return hotelListResp;
+	}
+	
+	
+	public static EANRestHotelListResponse execGetHotelListing(String hotelReqUrl,String hotelReqParams)
+	{
+		String hotelListResp = null;
+		
+		EANRestHotelListResponse resp = null;
+		
+		ObjectMapper objMapper = null;
+		
+		HttpEntity<String> reqEnt = null;
+		
+		objMapper = new ObjectMapper();
+		
+		hotelListResp = invokeRestRequest(hotelReqUrl + hotelReqParams, HttpActionEnum.Get.getAction(), reqEnt, null);
+		
+		try {
+			resp =objMapper.readValue(hotelListResp,EANRestHotelListResponse.class);
+		} catch (IOException mce) {
+			_log.error(mce);
+		}
+		
+		return resp;
+	}
+	
+	
+	public static String execEANRapidRequest(String rapidEANUrl,String params)
+	{
+		String restResult = null;
+		
+		HttpEntity<String> reqEnt = null;
+		
+		HttpHeaders reqHeaders = getTestEANRapidHeaders();
+		
+		reqEnt = new HttpEntity<String>(params,reqHeaders);
+		
+		_log.debug("EAN Rapid Url is- " + rapidEANUrl);
+		
+		restResult = invokeRestRequest(rapidEANUrl ,HttpActionEnum.Get.getAction(),reqEnt,null);
+				
+		
+		return restResult;
+	}
+	
+	
+	private static HttpHeaders createHeader(String headerName, String headerValue)
+	{
+		HttpHeaders header = new HttpHeaders();
+		
+		header.add(headerName, headerValue);
+		
+		return header;
+	}
+	
+	public HttpHeaders createTestEANRapidHeader()
+	{
+		HttpHeaders testHeader = null;
+		
+		testHeader = createHeader(TEST_EAN_STANDARD_HEADER_NAME, TEST_EAN_STANDARD_HEADER_VALUE);
+		
+		return testHeader;
+	}
+	
+	
+	public static HttpHeaders createEANAuthorizationHeader()
+	{
+		HttpHeaders authzHeader = null;
+		
+		authzHeader = createHeader(EAN_AUTHORIZATION_HEADER_NAME, EAN_AUTHORIZATION_HEADER_VALUE);
+		
+		
+		return authzHeader;
+	}
+	
+	
+	public static HttpHeaders getTestEANRapidHeaders()
+	{
+		
+		
+		HttpHeaders testReqHeaders = null;
+		
+		Long timeStamp = System.currentTimeMillis();
+		
+		EAN_TIMESTAMP_HEADER_VALUE = timeStamp.toString();
+		
+		EAN_SERVER_TIMESTAMP_HEADER_VALUE = timeStamp.toString();
+		
+		testReqHeaders = new HttpHeaders();
+		
+		testReqHeaders.add(EAN_AUTHORIZATION_HEADER_NAME, EAN_AUTHORIZATION_HEADER_VALUE);
+		
+		//testReqHeaders.add(TEST_EAN_STANDARD_HEADER_NAME, TEST_EAN_STANDARD_HEADER_VALUE);
+		
+		testReqHeaders.add(EAN_ACCEPT_HEADER_NAME, EAN_ACCEPT_HEADER_VALUE);
+		
+		testReqHeaders.add(EAN_ACCEPT_ENCODING_HEADER_NAME, EAN_ACCEPT_ENCODING_HEADER_VALUE);
+		
+		testReqHeaders.add(EAN_CUSTOMER_IP_HEADER_NAME, EAN_AUTHORIZATION_HEADER_VALUE);
+		
+		testReqHeaders.add(EAN_API_KEY_HEADER_NAME, EAN_API_KEY_HEADER_VALUE);
+		
+		testReqHeaders.add(EAN_TIMESTAMP_HEADER_NAME, EAN_TIMESTAMP_HEADER_VALUE);
+		testReqHeaders.add(EAN_SERVER_SIGNATURE_HEADER_NAME, EAN_SERVER_SIGNATURE_HEADER_VALUE);
+		testReqHeaders.add(EAN_SERVER_TIMESTAMP_HEADER_NAME, EAN_SERVER_TIMESTAMP_HEADER_VALUE);
+		
+		return testReqHeaders;
+	}
+	
+	
 }

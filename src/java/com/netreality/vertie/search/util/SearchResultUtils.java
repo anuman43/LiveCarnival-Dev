@@ -5,6 +5,7 @@ package com.netreality.vertie.search.util;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Iterator;
 import java.util.LinkedHashMap;
 import java.util.List;
@@ -32,6 +33,60 @@ public class SearchResultUtils {
 	
 	public static int CONNECTION_TIMEOUT = 30000;
 	private static Logger _log = Logger.getLogger(SearchResultUtils.class);
+	static HashMap<String,String> countryCodeMap = null;
+	
+	static {
+			 countryCodeMap = new HashMap<String,String>();
+			 countryCodeMap.put("Antigua and Barbuda", "AG");
+			 countryCodeMap.put("Anguilla", "AL");
+			 countryCodeMap.put("Aruba","AW");
+			 countryCodeMap.put("Bahamas","BS");
+			 countryCodeMap.put("Belize","BZ");
+			 countryCodeMap.put("Barbados","BB");
+			 countryCodeMap.put("Bermuda","BM");
+			 countryCodeMap.put("Canada","CA");
+			 countryCodeMap.put("Cayman Islands","KY");
+			 countryCodeMap.put("Cuba","CU");
+			 countryCodeMap.put("Curacao","CW");
+			 countryCodeMap.put("Dominican Republic","DO");
+			 countryCodeMap.put("Grenada","GD");
+			 countryCodeMap.put("Guadeloupe","GP");
+			 countryCodeMap.put("Haiti","HT");
+			 countryCodeMap.put("Jamaica","JM");
+			 countryCodeMap.put("Martinique","MQ");
+			 countryCodeMap.put("Puerto Rico","PR");
+			 countryCodeMap.put("Brazil","BR");
+			 countryCodeMap.put("Saint Barthélemy","BL");
+			 countryCodeMap.put("St Croix US VI","US");
+			 countryCodeMap.put("St. Kitts & Nevis","KN");
+			 countryCodeMap.put("St. Lucia","LC");
+			 countryCodeMap.put("St Thomas US VI","US");
+			 countryCodeMap.put("St. Vincent and the Grenadines","VC");
+			 countryCodeMap.put("Trinidad & Tobago","TT");
+			 countryCodeMap.put("Turks & Caicos Islands","TC");
+			 countryCodeMap.put("United Kindom","GB");
+			 countryCodeMap.put("United States","US");
+			 countryCodeMap.put("Costa Rica","CR");
+			 countryCodeMap.put("El Salvador","SV");
+			 countryCodeMap.put("Guatemala","GT");
+			 countryCodeMap.put("Honduras","HN");
+			 countryCodeMap.put("Mexico","MX");
+			 countryCodeMap.put("Nicaragua","NI");
+			 countryCodeMap.put("Panama","PA");
+			 countryCodeMap.put("Venezuela","VE");
+			 countryCodeMap.put("Guyana","GY");
+			/* countryCodeMap.put("","");
+			 countryCodeMap.put("","");
+			 countryCodeMap.put("","");
+			 countryCodeMap.put("","");*/
+			 
+			 
+			 
+			 
+			 
+			 
+			 
+	}
 	
 	public static String getResultTitle(String url) throws IOException
 	{
@@ -142,5 +197,20 @@ public class SearchResultUtils {
 		
 		return resultList;
 	}
+	
+	
+	public static String getISOTwoCountryCode(String countryStr)
+	{
+		String iso2CountryCode = null;
+		
+		if(countryStr != null)
+		{
+			iso2CountryCode = countryCodeMap.get(countryStr);
+			_log.debug("The 2 letter country code for -" + countryStr + " is- " + iso2CountryCode);
+		}
+		
+		return iso2CountryCode;
+	}
+	
 
 }

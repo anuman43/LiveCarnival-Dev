@@ -24,6 +24,10 @@ import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.View;
 import org.springframework.web.servlet.support.RequestContextUtils;
 
+import com.live4carnival.accomodation.ean.hotelList.po.EANHotelSummary;
+import com.live4carnival.accomodation.ean.hotelList.po.EANRestHotelListResponse;
+import com.live4carnival.accomodation.search.to.AcommodationRequestTO;
+import com.live4carnival.web.integration.rest.util.EANHotelApiRequests;
 import com.live4carnival.web.integration.rest.util.Live4CarnivalRestUtil;
 import com.live4carnival.web.integration.rest.util.TicketAPIUtil;
 import com.live4carnival.xml.util.XMLHelper;
@@ -99,6 +103,19 @@ public class VertieSearchController implements Serializable{
 	private String LIVE_CARNIVAL_TRAVEL_ITTINERARY_SEARCH = "travelItinerary";
 	private String LIVE_CARNIVAL_TRAVEL_RESULTS = "travelSearchResults";
 	private String LIVE_CARNIVAL_TRAVEL_RESULTS_SOLUTIONS_SIZE = "travelSolutions";
+	//Accomodation Search Results
+	private String LIVE_CARNIVAL_ACCOMODATION_LIST_RESULTS = "hotelsList";
+	private String LIVE_CARNIVAL_ACCOMODATION_LIST_RESULTS_DEFAULT_START_NAME = "accomodationListStart";
+	private String LIVE_CARNIVAL_ACCOMODATION_LIST_RESULTS_DEFAULT_END_NAME = "accomodationListEnd";
+	private String LIVE_CARNIVAL_ACCOMODATION_LIST_RESULTS_MAX_RESULTS_NAME = "maxAccomodations";
+	private String LIVE_CARNIVAL_ACCOMODATION_RESULTS_CURRENT_ACCOMODATION = "currentIteration";
+	private String LIVE_CARNIVAL_ACCOMODATION_RESULTS_MAX_ITER = "maximumIter";
+	private Integer LIVE_CARNIVAL_ACCOMODATION_LIST_RESULTS_DEFAULT_START = 1;
+	private Integer LIVE_CARNIVAL_ACCOMODATION_LIST_RESULTS_DEFAULT_END = 10;
+	private Integer LIVE_CARNIVAL_ACCOMODATION_LIST_RESULTS_CUR_ITER = 1;
+	private Integer LIVE_CARNIVAL_ACCOMODATION_LIST_RESULTS_MAX_ITER = 1;
+	
+	private Integer LIVE_CARNIVAL_HOTEL_RESULTS_SCROLL_COUNT = 10;
 	//Event Data Keys
 	private String LIVE_CARNIVAL_ALL_EVENT_DATA = "allEvents";
 	//Current Search TO
@@ -108,6 +125,9 @@ public class VertieSearchController implements Serializable{
 	//Paged results urls
 	private String VERTIE_PAGED_SEARCH_RESULTS_URL = "/Carnivate/pageResults";
 	private String VERTIE_PAGED_SEARCH_RESULTS_URL_KEY = "pagedSearchResults";
+	//Paged hotel/accomodation results
+	private String LIVE_CARNIVAL_HOTEL_PAGED_RESULTS_URL = "/Carnivate/scrollHotels";
+	private String LIVE_CARNIVAL_HOTEL_PAGED_RESULTS_URL_KEY = "scrollHotelResults";
 	//Search URL
 	private String VERTIE_KEYWORDS_SEARCH_URL_KEY = "keywordSearch";
 	private String VERTIE_KEYWORDS_SEARCH_URL = "/Carnivate/results";
@@ -127,6 +147,13 @@ public class VertieSearchController implements Serializable{
 	private String LIVE_CARNIVAL_EVENTS_XML_PACKAGE = "com/livecarnival/events/xml/";
 	private String LIVE_CARNIVAL_EVENTS_XML_FILE_NAME = "carnivals.xml";
 	private String LIVE_CARNIVAL_EVENTS_ELEMENT_NAME = "carnival";
+	
+	//Scroll behavior
+	
+	
+	
+	//Messages for log information
+	private final String ACCOMODATION_RESULTS_INFO_MSG = "Accomodation with results view";
 	
 	@RequestMapping(method=RequestMethod.GET)
 	public String getHomeUrl()
@@ -269,6 +296,77 @@ public class VertieSearchController implements Serializable{
 	}
 	
 	
+	private List<SearchResultTO> searchEvents(String searchTerms)
+	{
+		List<SearchResultTO> eventData = null;
+		
+		
+		return eventData;
+		
+	}
+	
+	@RequestMapping(value="Carnivate/scrollHotels",method=RequestMethod.GET)
+	public ModelAndView scrollHotelResults(@RequestParam("iteration")String scrollIter)
+	{
+		ModelAndView mvw = null;
+		EANHotelSummary[] hotelListArray = null;
+		/*Integer start = (Integer) searchModel.get(LIVE_CARNIVAL_ACCOMODATION_LIST_RESULTS_DEFAULT_START_NAME);
+		Integer end = (Integer) searchModel.get(LIVE_CARNIVAL_ACCOMODATION_LIST_RESULTS_DEFAULT_END_NAME);*/
+		Integer maxResults = (Integer) searchModel.get(LIVE_CARNIVAL_ACCOMODATION_LIST_RESULTS_MAX_RESULTS_NAME);
+		Integer curMaxIterVal = (Integer)searchModel.get(LIVE_CARNIVAL_ACCOMODATION_RESULTS_MAX_ITER);
+		if(scrollIter != null)
+		{
+			Integer resultsStart = null;
+			Integer resultsEnd  = null;
+			if(Integer.valueOf(scrollIter) > 1 && Integer.valueOf(scrollIter) <=  curMaxIterVal)
+			{
+								
+				resultsStart = LIVE_CARNIVAL_ACCOMODATION_LIST_RESULTS_DEFAULT_START * Integer.valueOf(scrollIter) * 10;
+				if(maxResults - resultsStart < 0)
+				{
+					resultsStart = LIVE_CARNIVAL_ACCOMODATION_LIST_RESULTS_DEFAULT_START * (Integer.valueOf(scrollIter) -1) * 10;
+					resultsEnd = maxResults;
+				}
+				else
+				{
+					resultsEnd  = resultsStart + LIVE_CARNIVAL_HOTEL_RESULTS_SCROLL_COUNT;
+				}
+				LIVE_CARNIVAL_ACCOMODATION_LIST_RESULTS_CUR_ITER = Integer.valueOf(scrollIter);
+			}
+			else
+			{
+				resultsStart = LIVE_CARNIVAL_ACCOMODATION_LIST_RESULTS_DEFAULT_START;
+				resultsEnd  = LIVE_CARNIVAL_ACCOMODATION_LIST_RESULTS_DEFAULT_END;
+				LIVE_CARNIVAL_ACCOMODATION_LIST_RESULTS_CUR_ITER = LIVE_CARNIVAL_ACCOMODATION_LIST_RESULTS_DEFAULT_START;
+			}
+			
+			 
+			// LIVE_CARNIVAL_ACCOMODATION_LIST_RESULTS_DEFAULT_END * Integer.valueOf(scrollIter) * 10;
+			_log.debug("Start value is-" + " resultsStart=" + resultsStart);
+			_log.debug("Start value is-" + " resultsEnd=" + resultsEnd);
+			
+			searchModel.put(LIVE_CARNIVAL_ACCOMODATION_LIST_RESULTS_DEFAULT_START_NAME, resultsStart);
+			searchModel.put(LIVE_CARNIVAL_ACCOMODATION_LIST_RESULTS_DEFAULT_END_NAME,resultsEnd);
+			hotelListArray = (EANHotelSummary[]) searchModel.get(LIVE_CARNIVAL_ACCOMODATION_LIST_RESULTS);
+			searchModel.put(LIVE_CARNIVAL_ACCOMODATION_LIST_RESULTS,hotelListArray);
+			 searchModel.put(LIVE_CARNIVAL_ACCOMODATION_RESULTS_CURRENT_ACCOMODATION,LIVE_CARNIVAL_ACCOMODATION_LIST_RESULTS_CUR_ITER);
+		}
+		
+		mvw = getInitModelAndView(VERTIE_HOTEL_SEARCH_RESULTS_VIEW);
+		return mvw;
+		//return "redirect:/Carnivate/getScrollHotels";
+	}
+	
+	@RequestMapping(value="Carnivate/getScrollHotels",method=RequestMethod.GET)
+	public ModelAndView scrollHotelResults()
+	{
+		ModelAndView mvw = null;
+		
+		mvw = getInitModelAndView(VERTIE_HOTEL_SEARCH_RESULTS_VIEW);
+		
+		return mvw;
+	}
+	
 	
 	@RequestMapping(value="Carnivate/submitTravelSearch",method=RequestMethod.POST)
 	public ModelAndView submitTravelSearch(@ModelAttribute("travelData") AirTravelForm travelData)
@@ -293,7 +391,7 @@ public class VertieSearchController implements Serializable{
 			searchModel.put(LIVE_CARNIVAL_TRAVEL_ITTINERARY_SEARCH, travelData.getFromAirport() + "to "+ travelData.getToAirport());
 			//searchModel.put(LIVE_CARNIVAL_TRAVEL_ITTINERARY_SEARCH, "Testing");
 			searchModel.put(LIVE_CARNIVAL_TRAVEL_RESULTS_SOLUTIONS_SIZE, fareResultSolution.getTrips().getTripOption().size());
-		
+			
 		}
 		else
 		{
@@ -421,6 +519,7 @@ public class VertieSearchController implements Serializable{
 		
 		PagedResultsViewTO pgView = null;
 		 List<SearchResultTO> searchResultsList = null;
+		 searchResultsList = new ArrayList<SearchResultTO>();
 		 SearchTO runSearch = null;
 		 RecentSearchTO recent = null;
 		 
@@ -429,7 +528,7 @@ public class VertieSearchController implements Serializable{
 				recent = new RecentSearchTO();
 				recent.setSearchWords(searchKeyWords);
 				this.searchResultMgr.addSearch(recent);
-				searchResultsList = new ArrayList<SearchResultTO>();
+				
 				searchResultsList = this.searchResultMgr.searchByRest(searchKeyWords);
 					
 					
@@ -799,6 +898,72 @@ public class VertieSearchController implements Serializable{
 	{
 		return MODEL_IS_INITIALIZED;
 	}
+	
+	
+	@RequestMapping(value="Carnivate/retrieveRoomInfo",method=RequestMethod.GET)
+	public ModelAndView getHotelRoomInfo()
+	{
+		ModelAndView mvw = null;
+		
+		return mvw;
+	}
+	
+	
+	
+	
+	
+	
+	
+	@RequestMapping(value="Carnivate/submitHotelSearch",method=RequestMethod.POST)
+	public ModelAndView submitAcommodationSearch(@ModelAttribute("hotelData")AcommodationRequestTO hotelFormData)
+	{
+		ModelAndView mvw = null;
+		EANHotelApiRequests eanApi = null;
+		EANRestHotelListResponse hotelSearchResp = null;
+		EANHotelSummary[] hotelListArray = null;
+		
+		if(hotelFormData != null)
+		{
+			 eanApi = new EANHotelApiRequests();
+			 
+			 hotelSearchResp = eanApi.performBaseHotelListSearch(hotelFormData);
+			 
+			 hotelListArray = hotelSearchResp.getHotelListResponse().getHotelList().getHotelSummary();
+			 
+			 LIVE_CARNIVAL_ACCOMODATION_LIST_RESULTS_MAX_ITER = hotelListArray.length / LIVE_CARNIVAL_ACCOMODATION_LIST_RESULTS_DEFAULT_END;
+			 
+			 searchModel.put(LIVE_CARNIVAL_ACCOMODATION_LIST_RESULTS,hotelListArray);
+			 searchModel.put(LIVE_CARNIVAL_ACCOMODATION_LIST_RESULTS_MAX_RESULTS_NAME, hotelListArray.length);
+			 searchModel.put(LIVE_CARNIVAL_ACCOMODATION_LIST_RESULTS_DEFAULT_END_NAME, LIVE_CARNIVAL_ACCOMODATION_LIST_RESULTS_DEFAULT_END);
+			 searchModel.put(LIVE_CARNIVAL_ACCOMODATION_LIST_RESULTS_DEFAULT_START_NAME, LIVE_CARNIVAL_ACCOMODATION_LIST_RESULTS_DEFAULT_START);
+			 searchModel.put(LIVE_CARNIVAL_ACCOMODATION_LIST_RESULTS_DEFAULT_END_NAME, LIVE_CARNIVAL_ACCOMODATION_LIST_RESULTS_DEFAULT_END);
+			 searchModel.put(LIVE_CARNIVAL_HOTEL_PAGED_RESULTS_URL_KEY,LIVE_CARNIVAL_HOTEL_PAGED_RESULTS_URL);
+			 searchModel.put(LIVE_CARNIVAL_ACCOMODATION_RESULTS_CURRENT_ACCOMODATION,LIVE_CARNIVAL_ACCOMODATION_LIST_RESULTS_CUR_ITER);
+			 searchModel.put(LIVE_CARNIVAL_ACCOMODATION_RESULTS_MAX_ITER,  LIVE_CARNIVAL_ACCOMODATION_LIST_RESULTS_MAX_ITER);
+		}
+		else
+		{
+			_log.info("Search yeilded no results");
+		}
+		mvw = getInitModelAndView(VERTIE_HOTEL_SEARCH_RESULTS_VIEW);
+		_log.info(ACCOMODATION_RESULTS_INFO_MSG);
+		
+		return mvw;
+	}
+	
+	
+	/*public ModelAndView scrollAccomodationResults(String beginRes,String endRes,String direction)
+	{
+		Integer MaxResultVal = (Integer) searchModel.get(LIVE_CARNIVAL_ACCOMODATION_LIST_RESULTS_MAX_RESULTS_NAME);
+		if(Integer.valueOf(beginRes) > 0 && Integer.valueOf(endRes) <= MaxResultVal)
+		{
+			
+		}
+		
+		return null;
+	}*/
+	
+	
 	
 
 }

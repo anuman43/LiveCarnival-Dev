@@ -1,4 +1,6 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
+
 <c:set var="baseURL" value='..' scope="application"/>
 <!doctype html>
 <html data-ng-app="app" class="ng-cloak">
@@ -63,6 +65,10 @@
 		
 	}
 
+
+
+	
+
 </script>
 
 <script type="application/javascript" src="${baseURL}/resources/scripts/jquery-1.12.4.js"></script>
@@ -76,6 +82,25 @@
 
 <!-- scripts/scripts.js -->
 <script type="application/javascript" src="${baseURL}/resources/scripts/app.js"></script>
+<script >
+
+	$(document).ready(function(){
+		//var searchURL = "<c:out value='${baseURL}/Carnivate/cseResults'/>";
+		//submit search when onchange occurs in navigation form textfield
+		 
+		$("#searchTxt").change(function(event)
+			{
+				$("#navbarSearchTxt").submit();
+				console.log("text entered");
+				
+		});
+		
+	});
+
+</script>
+
+
+
 </head>
 <body>
  <div class="container">

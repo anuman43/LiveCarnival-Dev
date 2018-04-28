@@ -1,6 +1,4 @@
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%@taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
+<%@include  file="taglibInclude.jsp" %>
 <%-- Boolean to hold segment count expression --%>
 
 <c:set var="segmentsVar" value="{0}"/>

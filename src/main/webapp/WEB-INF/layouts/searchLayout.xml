@@ -6,39 +6,48 @@
 
 <tiles-definitions>
 	
-	<!-- Layout -->
+	<!-- Layout 
 	<definition name="search-layout" template="/WEB-INF/layouts/searchTemplate.jsp">
 		<put-attribute name="header" value="/WEB-INF/layouts/header.jsp" />
 		<put-attribute name="navigation" value="/WEB-INF/layouts/navigation.jsp" />
 		<put-attribute name="footer" value="/WEB-INF/layouts/footer.jsp" />
 	</definition>
-	
-	<!-- Search Results Layout -->
+	-->
+	<!-- Search Results Layout
 	<definition name="search-results-layout" template="/WEB-INF/layouts/searchResultsTemplate.jsp">
 	
 		<put-attribute name="header" value="/WEB-INF/layouts/resultsHeader.jsp"/>
 		<put-attribute name="navigation" value="/WEB-INF/layouts/navigation.jsp" />
 		<put-attribute name="footer" value="/WEB-INF/layouts/footer.jsp" />	
-	
-	
 	</definition>
+	 -->
 	
-	<definition name="test-search-results-layout1" template="/WEB-INF/layouts/test-searchResultsTemplate.jsp">
+	<!-- <definition name="test-search-results-layout1" template="/WEB-INF/layouts/test-searchResultsTemplate.jsp">
 
 		<put-attribute name="header" value="/WEB-INF/layouts/liveCarnivalHeader.jsp"/>
 		<put-attribute name="navigation" value="/WEB-INF/layouts/liveCarnivalNav.jsp"/>
 		<put-attribute name="footer" value="/WEB-INF/layouts/liveCarnivalfooter.jsp"/>
 
+	</definition> -->
+	
+	
+	<definition name="livecarnival-results-layout" template="/WEB-INF/layouts/baseSearchResultsTemplate.jsp">
+	
+		<put-attribute name="header" value="/WEB-INF/layouts/liveCarnivalHeader.jsp"/>
+		<put-attribute name="navigation" value="/WEB-INF/layouts/liveCarnivalNav-new.jsp"/>
+		<put-attribute name="footer" value="/WEB-INF/layouts/liveCarnivalfooter.jsp"/>
+	
+	
 	</definition>
 	
 	
-	<definition name="test-hotel-search-layout" template="/WEB-INF/layouts/hotelSearchTemplate.jsp">
+	<!-- <definition name="test-hotel-search-layout" template="/WEB-INF/layouts/hotelSearchTemplate.jsp">
 
 		<put-attribute name="header" value="/WEB-INF/layouts/liveCarnivalHotelHeader.jsp"/>
 		<put-attribute name="navigation" value="/WEB-INF/layouts/liveCarnivalHotelNav.jsp"/>
 		<put-attribute name="footer" value="/WEB-INF/layouts/liveCarnivalHotelFooter.jsp"/>
 
-	</definition>
+	</definition> -->
 	
 
 	<!-- Empty Template -->
@@ -50,7 +59,7 @@
 		
 	</definition>
 	
-	<!-- Test Template Layout -->
+	<!-- Test Template Layout
 	
 	<definition name="test-ajax-layout" template="/WEB-INF/layouts/testTemplate.jsp">
 	
@@ -60,7 +69,7 @@
 	
 	
 	</definition>
-	
+	 -->
 	
 	<definition name="event-mgmt-layout" template="/WEB-INF/layouts/eventMgmTemplate.jsp">
 	
@@ -69,6 +78,16 @@
 		<put-attribute name="footer" value="/WEB-INF/eventMgmt/eventMgmtFooter.jsp"/>
 	
 	</definition>
+	
+	<!-- base form layout used by accommodations and travel view -->
+	<definition name="live4carnival-form-layout" template="/WEB-INF/layouts/baseFormTemplate.jsp">
+	
+		<put-attribute name="header" value="/WEB-INF/layouts/baseFormHeader.jsp"/>
+		<put-attribute name="navigation" value="/WEB-INF/layouts/baseFormNav.jsp"/>
+		<put-attribute name="footer" value="/WEB-INF/layouts/baseFormFooter.jsp"/>
+	
+	</definition>
+	
 	
 	
 </tiles-definitions>

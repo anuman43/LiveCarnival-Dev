@@ -23,6 +23,7 @@ import com.livecarnival.tickets.to.EventTo;
 import com.livecarnival.tickets.to.GenericTicketRespTo;
 import com.netreality.live4carnival.enums.TicketAPIActionsEnum;
 import com.netreality.livecarnival.tickets.data.EventsTestDisplayData;
+import com.netreality.vertie.alpha.to.SearchResultTO;
 
 import static com.netreality.live4carnival.tickets.api.TicketAPIConstants.LIVECARNIVAL_TICKETTING_REST_API_BASE_URL;
 import static com.netreality.live4carnival.tickets.api.TicketAPIConstants.LIVECARNIVAL_TICKETTING_GET_EVENTS_URI;
@@ -279,6 +280,46 @@ public class TicketAPIUtil {
 		eventInfo = convertJsonToEventDetails(restResult);
 		
 		return eventInfo;
+	}
+	
+	
+	public static List<EventDisplayObj>  getEventDataForMainSearch(String searchedTerm)
+	{
+		//List<SearchResultTO> eventResultData = null;
+		
+		List<EventDisplayObj> dispEvents =  null;
+		
+		GenericTicketRespTo eventResp = null;
+		eventResp = getEventsByFilter(searchedTerm);
+		
+		 dispEvents = convertToDisplayableEvents(eventResp);
+		
+		return dispEvents;
+	}
+	
+	
+	
+	private List<SearchResultTO> copyEventDisplayObjToSearchResultTO(List<EventDisplayObj> eventList)
+	{
+		List<SearchResultTO> eventSearchResults = null;
+		
+		eventSearchResults = new ArrayList<SearchResultTO>(eventList.size());
+		
+		for(EventDisplayObj eObj: eventList)
+		{
+			if(eObj != null)
+			{
+				SearchResultTO result = new SearchResultTO();
+				result.setResultUrl(eObj.getEventUri() + eObj.getEventTitle());
+				result.setDomainTerm(eObj.getEventTitle());
+				result.setResultPageTitle(eObj.getEventTitle());
+				eventSearchResults.add(result);
+			}
+		}
+		
+		
+		return eventSearchResults;
+		
 	}
 	
 	
